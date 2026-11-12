@@ -120,8 +120,8 @@
   "name": "GP Streaming — Freelancer de Transmissão ao Vivo",
   "description": "Freelancer de transmissão ao vivo em Curitiba: operação de vMix, câmera e Ronin, direção de corte, transmissão para painel de LED e montagem de presets de vMix e Bitfocus Companion.",
   "url": "https://gpstreaming.com.br/",
-  "logo": "https://gpstreaming.com.br/img/logo.png",
-  "image": "https://gpstreaming.com.br/img/logo.png",
+  "logo": "https://gpstreaming.com.br/img/logo.webp",
+  "image": "https://gpstreaming.com.br/img/logo.webp",
   "telephone": "+55-41-98475-7614",
   "email": "contato@gpstreaming.com.br",
   "address": {
@@ -509,35 +509,59 @@
     /* ==========================================================================
        5. SEÇÃO: INÍCIO (HERO) — a primeira coisa que aparece ao abrir o site
        ========================================================================== */
+    /* CELULAR (padrão): a foto aparece INTEIRA em cima, no formato 4:3,
+       e o texto fica embaixo, sobre o fundo escuro. Assim nada é cortado. */
     .hero {
       position: relative;
-      min-height: 100svh; /* ocupa a altura da tela toda, se ajustando bem em celulares */
-      display: flex;
-      align-items: flex-end;
+      display: block;
       overflow: hidden;
     }
 
     /* Foto de fundo da capa do site */
     .hero__fundo {
-      position: absolute;
-      inset: 0;
+      display: block;
       width: 100%;
-      height: 100%;
-      object-fit: cover; /* a foto preenche o espaço todo sem distorcer */
+      height: auto;
+      aspect-ratio: 4 / 3; /* mude pra 1 / 1 se quiser quadrada no celular */
+      object-fit: cover;   /* a foto preenche o espaço sem distorcer */
+      object-position: center;
     }
 
-    /* Camada escura por cima da foto, só pra garantir que o texto fique legível */
+    /* Degradê que mistura a parte de baixo da foto com o fundo escuro do site */
     .hero__sombra {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(11, 14, 18, 0.25) 0%, rgba(11, 14, 18, 0.6) 55%, rgba(11, 14, 18, 0.95) 100%);
+      top: 0;
+      left: 0;
+      right: 0;
+      aspect-ratio: 4 / 3; /* tem que ser igual ao da foto acima */
+      background: linear-gradient(180deg, rgba(11, 14, 18, 0.1) 0%, rgba(11, 14, 18, 0.15) 55%, var(--cor-fundo) 100%);
+    }
+
+    /* COMPUTADOR / TABLET: volta ao modo tela cheia, com a foto atrás do texto */
+    @media (min-width: 800px) {
+      .hero {
+        min-height: 100svh;
+        display: flex;
+        align-items: flex-end;
+      }
+      .hero__fundo {
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        aspect-ratio: auto;
+      }
+      .hero__sombra {
+        inset: 0;
+        aspect-ratio: auto;
+        background: linear-gradient(180deg, rgba(11, 14, 18, 0.25) 0%, rgba(11, 14, 18, 0.6) 55%, rgba(11, 14, 18, 0.95) 100%);
+      }
     }
 
     .hero__conteudo {
       position: relative;
       z-index: 2;
       width: 100%;
-      padding: 2rem 1.25rem clamp(3rem, 8vw, 6rem);
+      padding: 0.5rem 1.25rem clamp(3rem, 8vw, 6rem);
       max-width: 780px;
       margin-inline: auto;
     }
@@ -568,6 +592,10 @@
       color: var(--cor-texto-suave);
       max-width: 620px;
       margin-bottom: 2rem;
+    }
+
+    @media (min-width: 800px) {
+      .hero__conteudo { padding-top: 2rem; }
     }
 
     .hero__acoes {
@@ -774,7 +802,7 @@
 
       <!-- LOGO: troque o LINK abaixo pelo link da imagem da sua logo -->
       <a href="#inicio" class="logo" aria-label="Ir para o início">
-        <img src="https://gpstreaming.com.br/img/logo.png" alt="GP Streaming — freelancer de transmissão ao vivo em Curitiba">
+        <img src="https://gpstreaming.com.br/img/logo.webp" alt="GP Streaming — freelancer de transmissão ao vivo em Curitiba">
       </a>
       <!-- Se preferir usar só texto no lugar de uma imagem de logo, apague a
            tag <img> acima e coloque, por exemplo:
@@ -803,7 +831,7 @@
 
     <!-- FOTO DE CAPA: troque o LINK pela foto principal do site
          (ex: uma foto sua operando um evento, ou uma imagem marcante de trabalho) -->
-    <img class="hero__fundo" src="LINK" alt="Operador de transmissão ao vivo trabalhando em evento em Curitiba" fetchpriority="high">
+    <img class="hero__fundo" src="https://gpstreaming.com.br/img/capa.webp" alt="Operador de transmissão ao vivo trabalhando em evento em Curitiba" fetchpriority="high">
 
     <div class="hero__sombra"></div>
 
@@ -814,7 +842,7 @@
       <h1 class="hero__titulo">Transmissão ao vivo em Curitiba com precisão técnica.</h1>
 
       <!-- SUBTÍTULO: um complemento curto do título -->
-      <p class="hero__subtitulo">Operação de vMix, câmera e Ronin, direção de corte e presets de vMix e Bitfocus Companion para eventos, shows e festivais.</p>
+      <p class="hero__subtitulo">Operação de vMix, câmera, Ronin e PTZ, direção de corte e presets de vMix e Bitfocus Companion para eventos, shows e festivais.</p>
 
       <div class="hero__acoes">
         <a href="#servicos" class="botao botao--contorno">Ver serviços</a>
@@ -835,14 +863,14 @@
 
       <div class="sobre__foto">
         <!-- FOTO SUA: troque o LINK pela sua foto (trabalhando, em um evento, etc.) -->
-        <img src="LINK" alt="Freelancer de transmissão ao vivo operando equipamento em evento em Curitiba" loading="lazy">
+        <img src="https://gpstreaming.com.br/img/sobre.webp" alt="Freelancer de transmissão ao vivo operando equipamento em evento em Curitiba" loading="lazy">
       </div>
 
       <div class="sobre__texto">
         <h2>Sobre</h2>
         <!-- TEXTO SOBRE VOCÊ: pode editar do jeito que quiser, o importante é
              manter curto -->
-        <p>Sou técnico audiovisual freelancer em Curitiba, especializado em transmissão ao vivo. Opero vMix, câmeras e Ronin, monto presets de vMix e de Bitfocus Companion e faço direção de corte em shows, festivais e eventos de grande porte, ao lado de artistas e produções de destaque. Atendo Curitiba e região, garantindo que cada transmissão vá ao ar com qualidade técnica do início ao fim.</p>
+        <p>Gabriel Peres. Técnico audiovisual freelancer em Curitiba, especializado em transmissão ao vivo. Opero vMix, câmeras e Ronin, monto presets de vMix e de Bitfocus Companion. Faço direção de corte em shows, festivais e eventos de grande porte, ao lado de artistas e produções de destaque. Atendo Curitiba e região, garantindo que cada transmissão vá ao ar com qualidade técnica do início ao fim.</p>
 
         <!-- ETIQUETAS DE ESPECIALIDADE: adicione, remova ou edite os itens da lista -->
         <ul class="lista-tags texto-tecnico">
@@ -858,7 +886,7 @@
              WhatsApp: o número já está no link. Instagram: troque LINK pelo link do seu perfil. -->
         <div class="hero__acoes sobre__acoes">
           <a href="https://wa.me/5541984757614" class="botao botao--primario" target="_blank" rel="noopener">Falar no WhatsApp</a>
-          <a href="https://www.instagram.com/operesgabriel/" class="botao botao--instagram" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.instagram.com/operesgabriel" class="botao botao--instagram" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
 
@@ -878,7 +906,7 @@
       <div class="grade-servicos">
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Transmissão ao vivo para internet de evento em Curitiba" loading="lazy">
+          <img src="https://gpstreaming.com.br/img/ao_vivo.webp" alt="Transmissão ao vivo para internet de evento em Curitiba" loading="lazy">
           <figcaption>
             <h3>Transmissão ao vivo</h3>
             <p>Streaming para a internet de shows, eventos corporativos e festivais, com sinal estável do início ao fim.</p>
@@ -886,7 +914,7 @@
         </figure>
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Transmissão simultânea em painel de LED em evento em Curitiba" loading="lazy">
+          <img src="https://gpstreaming.com.br/img/simultanea.webp" alt="Transmissão simultânea em painel de LED em evento em Curitiba" loading="lazy">
           <figcaption>
             <h3>Transmissão simultânea</h3>
             <p>Sinal ao vivo levado ao painel de LED do evento, em sincronia com a produção.</p>
@@ -894,7 +922,7 @@
         </figure>
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Operador de câmera em evento ao vivo em Curitiba" loading="lazy">
+          <img src="https://gpstreaming.com.br/img/camera.webp" alt="Operador de câmera em evento ao vivo em Curitiba" loading="lazy">
           <figcaption>
             <h3>Operação de câmera</h3>
             <p>Cobertura de palco, plateia e bastidores com operação profissional de câmera.</p>
@@ -902,7 +930,7 @@
         </figure>
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Operador de Ronin captando imagens em movimento em Curitiba" loading="lazy">
+          <img src="https://gpstreaming.com.br/img/ronin.webp" alt="Operador de Ronin captando imagens em movimento em Curitiba" loading="lazy">
           <figcaption>
             <h3>Operação de Ronin</h3>
             <p>Câmera em movimento com estabilização profissional, para imagens fluidas em shows e eventos.</p>
@@ -910,7 +938,7 @@
         </figure>
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Operador de câmera PTZ em transmissão ao vivo em Curitiba" loading="lazy">
+          <img src="https://gpstreaming.com.br/img/ptz.webp" alt="Operador de câmera PTZ em transmissão ao vivo em Curitiba" loading="lazy">
           <figcaption>
             <h3>Operação de PTZ</h3>
             <p>Controle de câmeras PTZ remotas para enquadramentos precisos e movimentos suaves durante a transmissão.</p>
@@ -918,7 +946,7 @@
         </figure>
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Operação de vMix em transmissão ao vivo em Curitiba" loading="lazy">
+          <img src="https://gpstreaming.com.br/img/vmix.webp" alt="Operação de vMix em transmissão ao vivo em Curitiba" loading="lazy">
           <figcaption>
             <h3>Operação de vMix</h3>
             <p>Produção multicâmera, inserção de gráficos e cortes em tempo real dentro do vMix.</p>
@@ -926,7 +954,7 @@
         </figure>
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Montagem de preset de vMix para transmissão ao vivo" loading="lazy">
+          <img src="C:\Gabriel\vmix_preset2.webp" alt="Montagem de preset de vMix para transmissão ao vivo" loading="lazy">
           <figcaption>
             <h3>Montagem de preset de vMix</h3>
             <p>Preset sob medida para o seu evento: entradas, cenas, gráficos e saídas prontos para operar.</p>
@@ -934,7 +962,7 @@
         </figure>
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Preset de Bitfocus Companion para controle de transmissão" loading="lazy">
+          <img src="https://gpstreaming.com.br/img/bitfocus_companion.webp" alt="Preset de Bitfocus Companion para controle de transmissão" loading="lazy">
           <figcaption>
             <h3>Montagem de preset no Bitfocus Companion</h3>
             <p>Botões e automações no Bitfocus Companion para controlar vMix e outros equipamentos com agilidade.</p>
@@ -942,7 +970,7 @@
         </figure>
         <figure class="cartao-servico">
           <!-- IMAGEM: troque LINK pelo link da imagem deste serviço -->
-          <img src="LINK" alt="Direção de corte ao vivo em produção de TV em Curitiba" loading="lazy">
+          <img src="https://gpstreaming.com.br/img/dtv.webp" alt="Direção de corte ao vivo em produção de TV em Curitiba" loading="lazy">
           <figcaption>
             <h3>Direção de corte (DTV)</h3>
             <p>Corte de câmeras ao vivo em produções de estúdio, TV e transmissões simultâneas.</p>
@@ -983,8 +1011,9 @@
         <ul>
           <!-- Troque os LINKs abaixo pelos links dos seus perfis.
                Se não usar alguma rede, pode apagar a linha inteira. -->
-          <li><a href="https://www.instagram.com/operesgabriel/" target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href="https://www.instagram.com/operesgabriel" target="_blank" rel="noopener">Instagram</a></li>
           <li><a href="https://www.tiktok.com/@operesgabriel" target="_blank" rel="noopener">TikTok</a></li>
+		  <li><a href="https://www.linkedin.com/in/peresgabriel/" target="_blank" rel="noopener">LinkedIn</a></li>
         </ul>
       </div>
 
